@@ -8,9 +8,9 @@ class Sphere(Mesh3D):
     def __init__(self, draw_type, back_face_cull=False, radius=0.5, num_segments=16):
         self.radius = radius
         self.num_segments = num_segments
-        self.vertices = self.generate_sphere_vertices()
-        self.triangles = self.generate_sphere_triangles()
-        self.uvs = self.generate_sphere_uvs()
+        self.vertices = self.generate_vertices()
+        self.triangles = self.generate_triangles()
+        self.uvs = self.generate_uvs()
         self.draw_type = draw_type
         self.back_face_cull = back_face_cull
         Mesh3D.draw_type = draw_type
@@ -33,7 +33,7 @@ class Sphere(Mesh3D):
             norm = cross_product(u, v)
             self.faceNormals.append(norm)
 
-    def generate_sphere_vertices(self):
+    def generate_vertices(self):
         vertices = []
         for i in range(self.num_segments):
             phi = i * 2 * math.pi / self.num_segments
@@ -45,7 +45,7 @@ class Sphere(Mesh3D):
                 vertices.append((x, y, z))
         return vertices
 
-    def generate_sphere_triangles(self):
+    def generate_triangles(self):
         triangles = []
         for i in range(self.num_segments - 1):
             for j in range(self.num_segments - 1):
@@ -56,7 +56,7 @@ class Sphere(Mesh3D):
                 triangles.extend([p1, p3, p2, p2, p3, p4])
         return triangles
 
-    def generate_sphere_uvs(self):
+    def generate_uvs(self):
         uvs = []
         for i in range(self.num_segments):
             for j in range(self.num_segments):

@@ -21,25 +21,42 @@ objects_3d = []
 # draw_type = GL_LINE_LOOP
 draw_type = GL_TRIANGLES
 
-cube = Object("Cube")
-cube.set_mesh(Cube(draw_type, back_face_cull=False))
-cube.transform.update_position(pygame.Vector3(0, -2, 0))
-cube.velocity.update((0, 0, 0))
 
-sphere = Object("Sphere")
-sphere.set_mesh(Sphere(draw_type, back_face_cull=False))
-sphere.transform.update_position(pygame.Vector3(0, 2, 0))
-sphere.velocity.update((0, 10, 0))
+# Scenario 1
 
 # cube = Object("Cube")
 # cube.set_mesh(Cube(draw_type, back_face_cull=False))
-# cube.transform.update_position(pygame.Vector3(5, 0, 0))
-# cube.velocity.update((-4, 0, 0))
+# cube.transform.update_position(pygame.Vector3(0, -2, 0))
+# cube.velocity.update((0, 0, 0))
+# sphere = Object("Sphere")
+# sphere.set_mesh(Sphere(draw_type, back_face_cull=False))
+# sphere.transform.update_position(pygame.Vector3(0, 2, 0))
+# sphere.velocity.update((0, 10, 0))
+
+
+# Scenario 2
+
+cube = Object("Cube")
+cube.set_mesh(Cube(draw_type, back_face_cull=False))
+cube.transform.update_position(pygame.Vector3(0.5, -2, 0))
+cube.velocity.update((0, 10, 0))
+sphere = Object("Sphere")
+sphere.set_mesh(Sphere(draw_type, back_face_cull=False))
+sphere.transform.update_position(pygame.Vector3(0, 2, 0))
+sphere.velocity.update((0, 6, 0))
+
+
+# # Scenario 3
 #
+# cube = Object("Cube")
+# cube.set_mesh(Cube(draw_type, back_face_cull=False))
+# cube.transform.update_position(pygame.Vector3(5, 0, 0))
+# cube.velocity.update((-4, 10, 0))
 # sphere = Object("Sphere")
 # sphere.set_mesh(Sphere(draw_type, back_face_cull=False))
 # sphere.transform.update_position(pygame.Vector3(-5, 0, 0))
-# sphere.velocity.update((2, 0, 0))
+# sphere.velocity.update((2, 10, 0))
+
 
 camera = Camera(60, (screen_width / screen_height), 0.1, 1000.0)
 objects_3d.append(cube)
@@ -53,11 +70,11 @@ camera.transform.update_position(pygame.Vector3(0, 0, -10))
 def set_3d():
     glMatrixMode(GL_PROJECTION)
     glLoadMatrixf(camera.get_PPM())
-    #glLoadIdentity()
-    #gluPerspective(60, (screen_width / screen_height), 0.1, 100.0)
-    #pv = glGetDoublev(GL_PROJECTION_MATRIX)
-    #print("PV: ")
-    #print(pv)
+    # glLoadIdentity()
+    # gluPerspective(60, (screen_width / screen_height), 0.1, 100.0)
+    # pv = glGetDoublev(GL_PROJECTION_MATRIX)
+    # print("PV: ")
+    # print(pv)
     glMatrixMode(GL_MODELVIEW)
     glLoadIdentity()
     glViewport(0, 0, screen.get_width(), screen.get_height())
@@ -87,7 +104,7 @@ while not done:
     dt = clock.tick(fps) / 1000.0
     detect_collision(objects_3d)
     apply_gravity(sphere, dt)
-    # apply_gravity(cube, dt)
+    apply_gravity(cube, dt)
 
     for o in objects_3d:
         o.update(camera, dt, events)

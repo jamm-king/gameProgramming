@@ -1,11 +1,15 @@
 # How to run on Window
 
-On the project directory
+On the project directory with cmd
 
 1. python -m venv venv
 
-2. source ./venv/Scripts/activate
+2. cd venv/Scripts
 
-3. pip install -r requirements.txt
+3. activate.bat
 
-4. python app.py
+4. pip install -r requirements.txt
+
+5. cd ../..
+
+6. python app.py
